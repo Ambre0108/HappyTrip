@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HappyTrip — Carte</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="page-carte">
+
+  <header class="carte-header">
+    <h1>MAP MONDE</h1>
+  </header>
+
+  <main class="carte-main">
+    <div class="tip">Cliquez sur un pays pour découvrir ses informations</div>
+
+    <!-- Carte SVG chargée comme document pour garder les IDs -->
+    <div class="map-wrap">
+      <object id="worldMap" data="images/world.svg" type="image/svg+xml" aria-label="Carte du monde"></object>
+    </div>
+
+    <a class="btn btn-outline" href="index1.html">← Retour à l’accueil</a>
+  </main>
+
+  <!-- Panneau d’infos -->
+  <aside id="infoPanel" class="panel hidden" role="dialog" aria-modal="true">
+    <button class="panel-close" id="closePanel" aria-label="Fermer">×</button>
+    <h2 id="pays"></h2>
+    <ul class="kpis">
+      <li><strong>Rang de bonheur :</strong> <span id="rang"></span></li>
+      <li><strong>Score de bonheur :</strong> <span id="score"></span></li>
+      <li><strong>PIB / habitant :</strong> <span id="pib"></span></li>
+      <li><strong>Touristes / an :</strong> <span id="touristes"></span></li>
+      <li><strong>Revenus tourisme :</strong> <span id="revenus"></span></li>
+    </ul>
+    <div id="desc" class="desc"></div>
+  </aside>
+
+  <div id="backdrop" class="backdrop hidden"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
