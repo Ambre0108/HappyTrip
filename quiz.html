@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Quiz</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f5f5f5;
+        padding: 30px;
+    }
+
+    #quiz-container {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        max-width: 600px;
+        margin: auto;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 { margin-bottom: 20px; }
+
+    .choice {
+        margin: 10px 0;
+        display: block;
+    }
+
+    #next-btn {
+        margin-top: 20px;
+        padding: 10px 15px;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    #next-btn:hover {
+        background: #0056b3;
+    }
+
+    #result {
+        font-size: 22px;
+        font-weight: bold;
+        margin-top: 20px;
+        text-align: center;
+    }
+</style>
+</head>
+<body>
+
+<div id="quiz-container">
+    <h2 id="question"></h2>
+    <div id="choices"></div>
+    <button id="next-btn">Valider</button>
+    <div id="result"></div>
+</div>
+
+<script>
+const quiz = [
+    {
+        question: "Quelle est la capitale de la France ?",
+        type: "qcm",
+        choices: ["Lyon", "Paris", "Marseille", "Toulouse"],
+        answer: 1
+    },
+    {
+        question: "Le soleil est une étoile.",
+        type: "vf",
+        choices: ["Vrai", "Faux"],
+        answer: 0
+    },
+    {
+        question: "Quel est le plus grand océan du monde ?",
+        type: "qcm",
+        choices: ["Atlantique", "Arctique", "Indien", "Pacifique"],
+        answer: 3
+    }
+];
+
+let currentQuestion = 0;
+let score = 0;
+
+function loadQuestion() {
+    const q = quiz[currentQuestion];
+    document.getElementById("question").textContent = q.question;
+
+    const choicesDiv = document.getElementById("choices");
+    choicesDiv.innerHTML = "";
+
+    q.choices.forEach((choice, index) => {
+        const label = document.createElement("label");
+        label.classList.add("choice");
+
+        label.innerHTML = `
+            <input type="radio" name="choice" value="${index}">
+            ${choice}
+        `;
+        choicesDiv.appendChild(label);
+    });
+}
+
+document.getElementById("next-btn").addEventListener("click", () => {
+    const selected = document.querySelector("input[name='choice']:checked");
+    if (!selected) return alert("Veuillez choisir une réponse !");
+
+    if (parseInt(selected.value) === quiz[currentQuestion].answer) {
+        score++;
+    }
+
+    currentQuestion++;
+
+    if (currentQuestion < quiz.length) {
+        loadQuestion();
+    } else {
+        document.getElementById("quiz-container").innerHTML = `
+            <h2>Quiz terminé !</h2>
+            <p id="result">Vous avez obtenu <strong>${score}</strong> / ${quiz.length}</p>
+        `;
+    }
+});
+
+loadQuestion();
+</script>
+
+</body>
+</html>
