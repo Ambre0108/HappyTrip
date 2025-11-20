@@ -1,211 +1,319 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<title>Quiz</title>
-<meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="UTF-8">
+    <title>Quiz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+
 <style>
-    body {
-        background: #f5f5f5;
-        font-family: Arial, sans-serif;
-        padding: 30px;
-    }
 
-    #quiz-container {
-        max-width: 700px;
-        margin: auto;
-        padding: 30px;
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        text-align: center;
-    }
+/* ============================== */
+/* BASE */
+/* ============================== */
 
-    #status {
-        font-size: 14px;
-        color: #666;
-        margin-bottom: 10px;
-    }
+body {
+    background: #d6efff;
+    font-family: 'Fredoka', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
 
-    #question {
-        font-size: 32px;
-        font-weight: bold;
-        margin-bottom: 20px;
-        min-height: 56px;
-    }
+/* ============================== */
+/* CONTENEUR */
+/* ============================== */
 
-    .answer-btn {
-        display: block;
-        width: 100%;
-        padding: 18px;
-        margin: 12px 0;
-        font-size: 22px;
-        border: none;
-        border-radius: 10px;
-        background: #e0e0e0;
-        cursor: pointer;
-        transition: 0.25s;
-    }
+#quiz-container {
+    max-width: 900px;
+    margin: 40px auto;
+    background: #cfe9ff;
+    border: 6px solid #1e5fa1;
+    border-radius: 25px;
+    padding: 40px 30px;
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    position: relative;
+}
 
-    .answer-btn:hover { background: #d2d2d2; }
-    .correct { background: #4CAF50 !important; color: white; }
-    .wrong   { background: #E53935 !important; color: white; }
+/* Bandeau titre */
+#quiz-container::before {
+    content: "QUIZ";
+    display: block;
+    background: #a8d4ff;
+    color: #1e4c7d;
+    font-size: 50px;
+    font-weight: 900;
+    padding: 25px 0;
+    margin: -40px -30px 30px -30px;
+    border-radius: 20px 20px 0 0;
+    border-bottom: 4px solid #1e5fa1;
+}
 
-    #next-btn {
-        margin-top: 20px;
-        padding: 12px 20px;
-        font-size: 18px;
-        border: none;
-        background: #1976D2;
-        color: white;
-        border-radius: 10px;
-        cursor: pointer;
-        display: none;
-    }
+/* Masquer bandeau en fin de quiz */
+.end-screen::before {
+    display: none !important;
+}
 
-    #result { font-size: 26px; margin-top: 20px; font-weight: bold; }
+/* ============================== */
+/* QUESTION */
+/* ============================== */
 
-    #error {
-        color: #b00020;
-        font-weight: bold;
-        margin-bottom: 12px;
-    }
+#status {
+    font-size: 26px;
+    font-weight: bold;
+    color: #1e4c7d;
+    margin-bottom: 20px;
+}
+
+#question {
+    font-size: 34px;
+    font-weight: 700;
+    color: #1e4c7d;
+    margin-bottom: 10px;
+    line-height: 1.4em;
+}
+
+/* ============================== */
+/* EXPLICATION */
+/* ============================== */
+
+.explanation {
+    margin: 25px auto;
+    padding: 20px 28px;
+    font-size: 28px;
+    font-weight: 700;
+    color: white;
+    text-align: center;
+    width: 85%;
+}
+
+/* ============================== */
+/* RÉPONSES */
+/* ============================== */
+
+.answer-btn {
+    width: 45%;
+    padding: 20px;
+    margin: 20px 2%;
+    font-size: 28px;
+    font-weight: bold;
+    border-radius: 35px;
+    background: #ffffff;
+    border: 3px solid #1e5fa1;
+    color: #1e5fa1;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.answer-btn:hover {
+    background: #e3f2fd;
+    transform: scale(1.05);
+}
+
+.correct { background: #2ecc71 !important; color: white; }
+.wrong { background: #e53935 !important; color: white; }
+
+/* ============================== */
+/* BOUTON SUIVANT */
+/* ============================== */
+
+#next-btn {
+    margin: 40px auto 0 auto;
+    padding: 12px 30px;
+    font-size: 22px;
+    border: 3px solid #1e5fa1;
+    background: white;
+    color: #1e5fa1;
+    border-radius: 30px;
+    cursor: pointer;
+    display: none;
+    font-weight: bold;
+}
+
+#next-btn:hover {
+    background: #1e5fa1;
+    color: white;
+}
+
+/* ============================== */
+/* FIN DU QUIZ */
+/* ============================== */
+
+/* ============================== */
+/* ÉCRAN FINAL — VERSION CORRIGÉE */
+/* ============================== */
+
+
+/* Bandeau FIN DU QUIZ, parfaitement collé */
+#quiz-end-banner {
+    width: calc(100% + 60px);
+    background: #a8d4ff;
+    color: #1e4c7d;
+    font-size: 50px;
+    font-weight: 900;
+    padding: 25px 0;
+    border-bottom: 4px solid #1e5fa1;
+    border-radius: 20px 20px 0 0;
+    margin: -40px -30px 30px -30px;
+    text-align: center;
+}
+
+.end-screen #quiz-end-banner {
+    margin-top: -60px !important;
+}
+
+
+/* Texte du message final */
+#quiz-end-text {
+    font-size: 28px;
+    font-weight: 700;
+    color: white;
+    text-align: center;
+    line-height: 1.4em;
+    max-width: 650px;
+    margin: 20px auto 40px auto;
+}
+
+/* Boutons fin */
+#quiz-end-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.end-btn {
+    padding: 12px 30px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #1e5fa1;
+    background: white;
+    border: 3px solid #1e5fa1;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.end-btn:hover {
+    background: #1e5fa1;
+    color: white;
+}
+
+
+/* Zone résultat propre */
+#result {
+    padding: 0;
+    margin: 0;
+    background: none;
+}
+
 </style>
 </head>
+
 <body>
 
 <div id="quiz-container">
     <div id="status"></div>
     <div id="error" style="display:none;"></div>
+
     <div id="question"></div>
+    <div id="explanation" class="explanation"></div>
     <div id="choices"></div>
+
     <button id="next-btn">Question suivante</button>
+
     <div id="result"></div>
 </div>
 
-<!-- Charge la banque de questions en premier -->
 <script src="questions.js" defer></script>
 
-<!-- Script principal -->
-<script defer>
-/*
-  Script principal du quiz
-  Utilise Math.min(5, questionsBank.length) pour s'adapter
-  Affiche messages clairs si questions.js absent ou vide
-*/
-
-function showError(message) {
-    const errDiv = document.getElementById('error');
-    errDiv.style.display = 'block';
-    errDiv.textContent = message;
-    console.error('Quiz error:', message);
-}
-
-function showStatus(text) {
-    document.getElementById('status').textContent = text;
-}
-
-function getRandomQuestions(list, count) {
-    const shuffled = [...list].sort(() => Math.random() - 0.5);
-    return shuffled.slice(0, count);
-}
-
+<script>
 document.addEventListener('DOMContentLoaded', () => {
-    // Vérifications initiales
-    if (typeof questionsBank === 'undefined') {
-        showError("Erreur : le fichier questions.js n'a pas été trouvé ou n'a pas chargé. Vérifie le chemin et le nom du fichier.");
-        showStatus("Aucune question disponible.");
-        return;
-    }
 
-    if (!Array.isArray(questionsBank) || questionsBank.length === 0) {
-        showError("La banque de questions est vide. Ajoute des questions dans questions.js.");
-        showStatus("Aucune question disponible.");
-        return;
-    }
+    const TOTAL = Math.min(5, questionsBank.length);
+    const quiz = [...questionsBank].sort(() => Math.random() - 0.5).slice(0, TOTAL);
 
-    // Détermine le nombre de questions (max 5 ou moins si banque petite)
-    const TOTAL_QUESTIONS = Math.min(5, questionsBank.length);
-    const quiz = getRandomQuestions(questionsBank, TOTAL_QUESTIONS);
+    let current = 0, score = 0;
 
-    let currentQuestion = 0;
-    let score = 0;
-
-    const questionEl = document.getElementById('question');
-    const choicesDiv = document.getElementById('choices');
-    const nextBtn = document.getElementById('next-btn');
-    const resultDiv = document.getElementById('result');
-
-    function updateProgress() {
-        showStatus(`Question ${currentQuestion + 1} / ${quiz.length}`);
-    }
+    const elQ = document.getElementById('question');
+    const elC = document.getElementById('choices');
+    const elE = document.getElementById('explanation');
+    const elS = document.getElementById('status');
+    const next = document.getElementById('next-btn');
+    const result = document.getElementById('result');
+    const container = document.getElementById('quiz-container');
 
     function loadQuestion() {
-        // reset error display
-        document.getElementById('error').style.display = 'none';
+        const q = quiz[current];
 
-        updateProgress();
-        const q = quiz[currentQuestion];
-        if (!q || !q.choices || typeof q.answer !== 'number') {
-            showError("Question mal formée. Vérifie l'objet question dans questions.js.");
-            return;
-        }
+        elS.textContent = `Question ${current+1} / ${TOTAL}`;
+        elQ.textContent = q.question;
 
-        questionEl.textContent = q.question;
-        choicesDiv.innerHTML = '';
-        nextBtn.style.display = 'none';
+        elE.style.display = 'none';
+        elE.textContent = "";
 
-        // créer boutons pour chaque choix
-        q.choices.forEach((choice, index) => {
+        elC.innerHTML = "";
+        next.style.display = "none";
+
+        q.choices.forEach((txt, i) => {
             const btn = document.createElement('button');
-            btn.className = 'answer-btn';
-            btn.textContent = choice;
-            btn.type = 'button';
-            btn.addEventListener('click', () => checkAnswer(index, btn));
-            choicesDiv.appendChild(btn);
+            btn.className = "answer-btn";
+            btn.textContent = txt;
+            btn.onclick = () => check(i, btn);
+            elC.appendChild(btn);
         });
     }
 
-    function checkAnswer(selectedIndex, clickedButton) {
-        const q = quiz[currentQuestion];
-        const correctIndex = q.answer;
-        const buttons = choicesDiv.querySelectorAll('.answer-btn');
+    function check(i, btn) {
+        const q = quiz[current];
+        const all = document.querySelectorAll('.answer-btn');
 
-        // désactiver tous
-        buttons.forEach(b => b.disabled = true);
+        all.forEach(b => b.disabled = true);
 
-        if (selectedIndex === correctIndex) {
-            clickedButton.classList.add('correct');
-            score++;
-        } else {
-            clickedButton.classList.add('wrong');
-            // montrer la bonne réponse (si existe)
-            if (buttons[correctIndex]) {
-                buttons[correctIndex].classList.add('correct');
-            }
+        if(i === q.answer) { btn.classList.add("correct"); score++; }
+        else {
+            btn.classList.add("wrong");
+            all[q.answer].classList.add("correct");
         }
 
-        nextBtn.style.display = 'inline-block';
-        nextBtn.focus();
+        elE.textContent = q.explanation;
+        elE.style.display = "block";
+
+        next.style.display = "block";
     }
 
-    nextBtn.addEventListener('click', () => {
-        currentQuestion++;
-        if (currentQuestion < quiz.length) {
-            loadQuestion();
-        } else {
-            // fin du quiz
-            questionEl.textContent = 'Quiz terminé !';
-            choicesDiv.innerHTML = '';
-            nextBtn.style.display = 'none';
-            resultDiv.innerHTML = `Score : <strong>${score}</strong> / ${quiz.length}`;
-            showStatus('Terminé');
-            // optionnel : détailler résultats, proposer rejouer...
-        }
-    });
+    next.onclick = () => {
+        current++;
+        if(current < TOTAL) loadQuestion();
+        else finish();
+    };
 
-    // Lancement initial
-    console.log(`Quiz chargé — questions en banque: ${questionsBank.length}. Quiz length: ${quiz.length}`);
+    function finish() {
+
+        container.classList.add("end-screen");
+
+        elQ.textContent = "";
+        elE.style.display = "none";
+        elC.innerHTML = "";
+        next.style.display = "none";
+        elS.textContent = "";
+
+        result.innerHTML = `
+            <div id="quiz-end-banner">FIN DU QUIZ</div>
+
+            <div id="quiz-end-text">
+                Vous avez terminé le quiz avec un score de
+                <strong>${score}/${TOTAL}</strong>.<br>
+                Continuez d’explorer la carte interactive !
+            </div>
+
+            <div id="quiz-end-buttons">
+                <button class="end-btn" onclick="location.href='index1.html'">Retour à l'accueil</button>
+                <button class="end-btn" onclick="location.href='carte.html'">Retour à la carte</button>
+            </div>
+        `;
+    }
+
     loadQuestion();
 });
 </script>
