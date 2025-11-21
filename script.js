@@ -123,3 +123,21 @@ if (!obj) {
     console.log("✅ SVG chargé et listeners installés.");
   });
 }
+window.addEventListener("load", () => {
+    const map = document.getElementById("worldMap");
+
+    map.addEventListener("load", () => {
+        const svgDoc = map.contentDocument;
+        const countries = svgDoc.querySelectorAll("path, g");
+
+        countries.forEach(country => {
+            country.addEventListener("click", () => {
+                const code = country.id;  // exemple : FR, MX, AR
+                if (code) {
+                    window.location.href = "pays.php?code=" + code;
+                }
+            });
+        });
+    });
+});
+
