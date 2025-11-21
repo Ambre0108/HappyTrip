@@ -1,37 +1,28 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Connexion – HappyTrip</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>Connexion - HappyTrip</title>
 </head>
+<body>
 
-<body class="presentation">
+<h2>Connexion</h2>
 
-  <h1>Connexion</h1>
+<form action="login.php" method="POST">
+    <label for="email">Email :</label><br>
+    <input type="email" id="email" name="email" required><br><br>
 
-  <div class="contenu">
-    <form method="get" action="profil.html" autocomplete="off">
+    <label for="mdp">Mot de passe :</label><br>
+    <input type="password" id="mdp" name="mdp" required><br><br>
 
-      <p>
-        Adresse e-mail :  
-        <input type="text" name="mail" />
-      </p>
+    <button type="submit">Se connecter</button>
+</form>
 
-      <p>
-        Mot de passe :  
-        <input type="password" name="mdp" />
-      </p>
+<br><br>
 
-      <p>
-        <input type="submit" value="Se connecter" class="btn">
-      </p>
-
-    </form>
-
-    <a href="index1.html" class="btn btn-outline">← Retour</a>
-  </div>
+<p>Pas encore de compte ?  
+    <a href="register.html">Créer une session / S'inscrire</a>
+</p>
 
 </body>
 </html>
