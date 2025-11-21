@@ -240,6 +240,15 @@ body.page-carte {
 }
 .backdrop.hidden{ display:none; }
 
-/* Hover/clic pays (styles appliqués via JS sur l’SVG) */
-svg .country { cursor: pointer; transition: filter .15s, fill .15s; }
-svg .country:hover { filter: brightness(1.15); }
+body {
+    background-color: #404040
+}
+
+svg {
+    background-color: #404040"
+}
+
+country {
+    font-size:30px"
+}
+
