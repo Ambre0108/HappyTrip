@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Connexion - HappyTrip</title>
+
+    <!-- Police -->
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -18,7 +20,6 @@
         position: relative;
     }
 
-    /* --- Fenêtre centrale --- */
     .login-box {
         background: white;
         padding: 40px 50px;
@@ -55,9 +56,7 @@
         background: #f2f7fc;
     }
 
-    /* --- Bouton bleu principal --- */
-    button,
-    .btn-retour {
+    button {
         width: 100%;
         padding: 14px;
         background: #1e5fa1;
@@ -69,17 +68,12 @@
         cursor: pointer;
         margin-top: 10px;
         transition: 0.25s;
-        text-decoration: none;
-        display: inline-block;
-        text-align: center;
     }
 
-    button:hover,
-    .btn-retour:hover {
+    button:hover {
         background: #174a7c;
     }
 
-    /* --- Lien inscription --- */
     .register-link {
         margin-top: 15px;
         font-size: 14px;
@@ -96,33 +90,45 @@
         text-decoration: underline;
     }
 
-    /* --- Bouton retour en bas à droite --- */
     .retour-container {
         position: absolute;
         bottom: 25px;
         right: 40px;
         width: 150px;
     }
-</style>
 
+    .btn-retour {
+        width: 100%;
+        padding: 14px;
+        background: #1e5fa1;
+        color: white;
+        font-size: 18px;
+        font-weight: 700;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        text-decoration: none;
+        display: block;
+        text-align: center;
+    }
+</style>
 </head>
+
 <body>
 
-    <!-- BOUTON RETOUR BAS DROITE -->
     <div class="retour-container">
         <a href="index1.html" class="btn-retour">Retour</a>
     </div>
 
-    <!-- BOX DE CONNEXION -->
     <div class="login-box">
         <h2>Connexion à HappyTrip</h2>
 
         <form action="login.php" method="POST">
             <label for="email">Adresse e-mail :</label>
-            <input type="email" id="email" name="email" placeholder="jean.dupont@email.com" required>
+            <input type="email" id="email" name="email" required>
 
             <label for="mdp">Mot de passe :</label>
-            <input type="password" id="mdp" name="mdp" placeholder="********" required>
+            <input type="password" id="mdp" name="mdp" required>
 
             <button type="submit">Se connecter</button>
         </form>
