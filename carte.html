@@ -13,7 +13,18 @@
 		<script src="js/zoom.js"></script>
 		<script src="js/script.js"></script>
 	</head>
-	
+	 <script>
+
+document.querySelectorAll(".land").forEach(function(pays) {
+    pays.addEventListener("click", function () {
+
+        let code = this.id;  // EX: "FR", "ES", "AR"
+
+        // Redirection vers ton fichier PHP
+        window.location.href = "carte.php?code=" + code;
+    });
+});
+</script>
 	<body class="page-carte">
   		<header class="carte-header">
     		<h1>MAP MONDE</h1>
