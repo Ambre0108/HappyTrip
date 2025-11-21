@@ -1,29 +1,25 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['id_utilisateur'])) {
+    header("Location: login.html");
+    exit;
+}
+?>
+
 <!DOCTYPE html>
-<html lang="fr">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Profil – HappyTrip</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>Profil</title>
 </head>
+<body>
 
-<body class="presentation">
+<h2>Bienvenue, <?php echo $_SESSION['nom']; ?> !</h2>
+<p>Ceci est votre page profil.</p>
 
-  <h1>Mon Profil</h1>
-
-  <div class="contenu">
-
-    <h2>Informations du compte</h2>
-    <p><strong>Adresse e-mail :</strong> (affichée ici plus tard)</p>
-    <p><strong>Nom :</strong> (à remplir plus tard)</p>
-    <p><strong>Prénom :</strong> (à remplir plus tard)</p>
-
-    <h3>Actions</h3>
-    <ul>
-      <li><a class="btn" href="index1.html">Retour à l'accueil</a></li>
-    </ul>
-
-  </div>
+<a href="logout.php">Se déconnecter</a>
 
 </body>
 </html>
+
