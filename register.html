@@ -3,27 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <title>Créer un compte - HappyTrip</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Fredoka', sans-serif;
+        background: url('valise.jpg') no-repeat center/cover;
+        height: 100vh;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        padding-left: 200px;
+    }
+
+    /* --- Fenêtre centrale --- */
+    .login-box {
+        background: white;
+        padding: 40px 50px;
+        border-radius: 20px;
+        width: 420px;
+        text-align: center;
+        box-shadow: 0px 10px 25px rgba(0,0,0,0.25);
+    }
+
+    .login-box h2 {
+        font-size: 26px;
+        font-weight: 700;
+        color: #1e4c7d;
+        margin-bottom: 25px;
+    }
+
+    label {
+        font-weight: 600;
+        color: #1e4c7d;
+        display: block;
+        text-align: left;
+        margin-bottom: 6px;
+        font-size: 16px;
+    }
+
+    input {
+        width: 100%;
+        padding: 12px 15px;
+        font-size: 16px;
+        border: 2px solid #d6e6f5;
+        border-radius: 10px;
+        outline: none;
+        margin-bottom: 18px;
+        background: #f2f7fc;
+    }
+
+    /* --- Bouton bleu principal --- */
+    button,
+    .btn-retour {
+        width: 100%;
+        padding: 14px;
+        background: #1e5fa1;
+        color: white;
+        font-size: 18px;
+        font-weight: 700;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        margin-top: 10px;
+        transition: 0.25s;
+        text-decoration: none;
+        display: inline-block;
+        text-align: center;
+    }
+
+    button:hover,
+    .btn-retour:hover {
+        background: #174a7c;
+    }
+
+    /* --- Lien inscription --- */
+    .register-link {
+        margin-top: 15px;
+        font-size: 14px;
+        color: #1e4c7d;
+    }
+
+    .register-link a {
+        color: #1e4c7d;
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+    .register-link a:hover {
+        text-decoration: underline;
+    }
+
+    /* --- Bouton retour en bas à droite --- */
+    .retour-container {
+        position: absolute;
+        bottom: 25px;
+        right: 40px;
+        width: 150px;
+    }
+</style>
+
 </head>
+
 <body>
 
-<h2>Créer un compte</h2>
+    <!-- BOUTON RETOUR BAS DROITE -->
+    <div class="retour-container">
+        <a href="index1.html" class="btn-retour">Retour</a>
+    </div>
 
-<form action="register.php" method="POST">
-    <label>Nom :</label><br>
-    <input type="text" name="nom" required><br><br>
+    <!-- BOX DE CRÉATION DE COMPTE -->
+    <div class="login-box">
+        <h2>Créer un compte</h2>
 
-    <label>Email :</label><br>
-    <input type="email" name="email" required><br><br>
+        <form action="register.php" method="POST">
+            <label for="nom">Nom :</label>
+            <input type="text" id="nom" name="nom" placeholder="Jean Dupont" required>
 
-    <label>Mot de passe :</label><br>
-    <input type="password" name="mdp" required><br><br>
+            <label for="email">Adresse e-mail :</label>
+            <input type="email" id="email" name="email" placeholder="jean.dupont@email.com" required>
 
-    <button type="submit">Créer mon compte</button>
-</form>
+            <label for="mdp">Mot de passe :</label>
+            <input type="password" id="mdp" name="mdp" placeholder="********" required>
 
-<p>Vous avez déjà un compte ?
-    <a href="login.html">Connexion</a>
-</p>
+            <button type="submit">Créer mon compte</button>
+        </form>
+
+        <p class="register-link">
+            Déjà un compte ?
+            <a href="login.html">Se connecter.</a>
+        </p>
+    </div>
 
 </body>
 </html>
