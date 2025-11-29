@@ -32,7 +32,7 @@ if ($stmt->num_rows === 1) {
         $_SESSION['id_utilisateur'] = $id;
         $_SESSION['nom'] = $nom;
 
-        header("Location: profil.php");
+        header("Location: index1.php");
         exit;
     } else {
         echo "Mot de passe incorrect";
