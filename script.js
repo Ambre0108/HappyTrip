@@ -125,13 +125,14 @@ $(document).ready(function () {
             container.innerHTML = "";
 
             // --- Affichage moyenne + count ---
-            const statsBox = document.getElementById("avis-stats");
             if (data.count === 0) {
-                statsBox.innerHTML = "Aucun avis pour ce pays pour l’instant.";
+                container.innerHTML = "<p>Aucun avis pour ce pays pour l’instant.</p>";
             } else {
-                statsBox.innerHTML = `
-                    <strong>${data.count} avis -  ${data.moyenne}</strong>
-                    <img src="images/etoile_remplie.svg" class="star-mini">
+                container.innerHTML = `
+                    <div class="avis-stats-box">
+                        <strong>${data.count} avis - ${data.moyenne}/5</strong>
+                        <img src="images/etoile_remplie.svg" class="star-mini">
+                    </div>
                 `;
             }
 
@@ -160,7 +161,8 @@ $(document).ready(function () {
                 `;
             });
         });
-    }
+}
+
 
 
     // ============================================

@@ -12,10 +12,12 @@ $conn = new mysqli($host, $user, $pass, $db);
 $code = $_GET["pays"];
 
 // Récupérer les avis
-$sql = "SELECT a.*, u.nom 
+$sql = "SELECT a.*, u.email
         FROM avis a 
         JOIN utilisateur u ON u.id_utilisateur = a.id_utilisateur
-        WHERE a.code_pays = ?";
+        WHERE a.code_pays = ?
+        ORDER BY a.date_avis DESC";
+
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $code);
 $stmt->execute();
