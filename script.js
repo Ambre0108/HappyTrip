@@ -22,21 +22,188 @@ function timeAgo(dateString) {
 
 // Conversion ID SVG → codes BD
 const SVG_TO_DB = {
+    // Amérique du Nord
     US: "USA",
-    FR: "FRA",
     CA: "CAN",
     MX: "MEX",
-    PL: "POL",
+
+    // Amérique centrale / Caraïbes
+    CU: "CUB",
+    DO: "DOM",
+    HT: "HTI",
+    CR: "CRI",
+    PA: "PAN",
+    GT: "GTM",
+    HN: "HND",
+    SV: "SLV",
+    NI: "NIC",
+    BZ: "BLZ",
+
+    // Amérique du Sud
+    AR: "ARG",
+    BR: "BRA",
+    BO: "BOL",
+    CL: "CHL",
+    CO: "COL",
+    EC: "ECU",
+    GF: "GUF",
+    GY: "GUY",
+    PE: "PER",
+    PY: "PRY",
+    SR: "SUR",
+    UY: "URY",
+    VE: "VEN",
+
+    // Europe de l'Ouest
+    FR: "FRA",
+    BE: "BEL",
+    NL: "NLD",
+    LU: "LUX",
+    DE: "DEU",
+    CH: "CHE",
+    AT: "AUT",
+
+    // Europe du Sud
     ES: "ESP",
     IT: "ITA",
-    DE: "DEU",
-    BE: "BEL",
-    AU: "AUS",
-    BO: "BOL",
-    BR: "BRA",
+    PT: "PRT",
+    GR: "GRC",
+    MT: "MLT",
+
+    // Europe du Nord
+    GB: "GBR",
+    IE: "IRL",
+    DK: "DNK",
+    NO: "NOR",
+    SE: "SWE",
+    FI: "FIN",
+    IS: "ISL",
+
+    // Europe de l’Est
+    PL: "POL",
+    CZ: "CZE",
+    SK: "SVK",
+    HU: "HUN",
+    RO: "ROU",
+    BG: "BGR",
+    LT: "LTU",
+    LV: "LVA",
+    EE: "EST",
+    UA: "UKR",
+    BY: "BLR",
+    RU: "RUS",
+
+    // Afrique du Nord
+    MA: "MAR",
+    DZ: "DZA",
+    TN: "TUN",
+    LY: "LBY",
+    EG: "EGY",
+
+    // Afrique de l’Ouest
+    SN: "SEN",
+    ML: "MLI",
+    BF: "BFA",
+    NE: "NER",
+    NG: "NGA",
+    CI: "CIV",
+    GH: "GHA",
+    TG: "TGO",
+    BJ: "BEN",
+    LR: "LBR",
+    SL: "SLE",
+    GN: "GIN",
+    GW: "GNB",
+    GM: "GMB",
+    MR: "MRT",
+
+    // Afrique Centrale
+    CM: "CMR",
+    TD: "TCD",
+    CF: "CAF",
+    CG: "COG",
+    CD: "COD",
+    GA: "GAB",
+    GQ: "GNQ",
+
+    // Afrique de l’Est
+    ET: "ETH",
+    KE: "KEN",
+    UG: "UGA",
+    TZ: "TZA",
+    RW: "RWA",
+    BI: "BDI",
+    SO: "SOM",
+    SS: "SSD",
+    DJ: "DJI",
+    ER: "ERI",
+
+    // Afrique australe
+    ZA: "ZAF",
+    NA: "NAM",
+    BW: "BWA",
+    ZW: "ZWE",
+    ZM: "ZMB",
+    MZ: "MOZ",
+    MG: "MDG",
+
+    // Moyen-Orient
+    TR: "TUR",
+    IL: "ISR",
+    PS: "PSE",
+    JO: "JOR",
+    LB: "LBN",
+    SY: "SYR",
+    IQ: "IRQ",
+    SA: "SAU",
+    YE: "YEM",
+    OM: "OMN",
+    AE: "ARE",
+    KW: "KWT",
+    QA: "QAT",
+    BH: "BHR",
+    IR: "IRN",
+
+    // Asie du Sud
+    IN: "IND",
+    PK: "PAK",
+    BD: "BGD",
+    LK: "LKA",
+    NP: "NPL",
+    BT: "BTN",
+    AF: "AFG",
+
+    // Asie de l’Est
     CN: "CHN",
-    IN: "IND"
+    JP: "JPN",
+    KR: "KOR",
+    KP: "PRK",
+    MN: "MNG",
+
+    // Asie du Sud-Est
+    TH: "THA",
+    VN: "VNM",
+    KH: "KHM",
+    LA: "LAO",
+    MM: "MMR",
+    MY: "MYS",
+    SG: "SGP",
+    ID: "IDN",
+    PH: "PHL",
+    BN: "BRN",
+    TL: "TLS",
+
+    // Océanie
+    AU: "AUS",
+    NZ: "NZL",
+    PG: "PNG",
+    FJ: "FJI",
+    SB: "SLB",
+    VU: "VUT",
+    NC: "NCL",
+    PF: "PYF"
 };
+
 
 let radarChart = null;
 
