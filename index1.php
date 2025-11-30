@@ -140,7 +140,7 @@ $nom = $_SESSION['nom'] ?? null;
 
       <!-- Texte centré -->
       <div class="banner-center">
-          <h1>Bienvenue sur HappyTrip</h1>
+          <h1>Bienvenue sur HappyTrip !!</h1>
 
           <?php if ($nom): ?>
               <div class="username">

@@ -307,6 +307,7 @@ document.querySelectorAll(".land").forEach(function(pays) {
 		<aside id="infoPanel" class="panel hidden">
     		<button class="panel-close" id="closePanel">×</button>
     		<h2 id="pays"></h2>
+			<div id="avis-stats" style="margin-bottom:15px; font-size:15px; font-weight:600; color:#1c3a85;"></div>
     		<ul class="kpis">
         		<li><strong>Rang de bonheur :</strong> <span id="rang"></span></li>
         		<li><strong>Score :</strong> <span id="score"></span></li>
@@ -315,6 +316,9 @@ document.querySelectorAll(".land").forEach(function(pays) {
         		<li><strong>Revenus :</strong> <span id="revenus"></span></li>
 			</ul>
     		<div id="desc" class="desc"></div>
+			<h3><strong>Avis des voyageurs</strong></h3>
+				<div id="avis-container"></div>
+				<div id="avis-form-container"></div>
 		</aside>
 
 		<div id="backdrop" class="backdrop hidden"></div>
