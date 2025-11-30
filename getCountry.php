@@ -25,6 +25,7 @@ $code = $_GET['code'];
 $sql = "
 SELECT 
     p.nom_pays,
+    p.rang_bonheur,
     p.continent,
     p.description,
     b.score_bonheur,

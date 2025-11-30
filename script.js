@@ -66,7 +66,7 @@ $(document).ready(function () {
         $.get("getCountry.php?code=" + dbCode, function (data) {
 
             $("#pays").text(data.nom_pays);
-            $("#rang").text(data.rang || "—");
+            $("#rang").text(data.rang_bonheur || "—");
             $("#score").text(data.score_bonheur || "—");
             $("#pib").text(data.pib_par_habitant || "—");
             $("#touristes").text(data.nombre_touristes || "—");
