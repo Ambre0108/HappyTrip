@@ -10,21 +10,8 @@
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 		
-		
-		<script src="script.js"></script>
 	</head>
-	 <script>
-
-document.querySelectorAll(".land").forEach(function(pays) {
-    pays.addEventListener("click", function () {
-
-        let code = this.id;  // EX: "FR", "ES", "AR"
-
-        // Redirection vers ton fichier PHP
-        window.location.href = "carte.php?code=" + code;
-    });
-});
-</script>
+	 
 	<body class="page-carte">
   		<header class="carte-header">
     		<h1>MAP MONDE</h1>
@@ -307,7 +294,13 @@ document.querySelectorAll(".land").forEach(function(pays) {
 		<aside id="infoPanel" class="panel hidden">
     		<button class="panel-close" id="closePanel">×</button>
     		<h2 id="pays"></h2>
-			<div id="avis-stats" style="margin-bottom:15px; font-size:15px; font-weight:600; color:#1c3a85;"></div>
+			
+			<button id="btnRadar" class="radar-btn">📊 Voir le graphique</button>
+
+			<div id="radarContainer" class="hidden" style="margin-bottom:15px;">
+    			<canvas id="radarChart" width="300" height="300"></canvas>
+			</div>
+
     		<ul class="kpis">
         		<li><strong>Rang de bonheur :</strong> <span id="rang"></span></li>
         		<li><strong>Score :</strong> <span id="score"></span></li>
@@ -327,5 +320,9 @@ document.querySelectorAll(".land").forEach(function(pays) {
 		
   					
 		<div id="info-country" class="col-md-6 pr-5 text-white"> <!--Informations du pays--></div>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+	<script src="script.js"></script>
 	</body>
 </html>

@@ -221,7 +221,12 @@ body.page-carte {
   padding: 18px 18px 22px;
   z-index: 20;
 }
-.panel.hidden{ display:none; }
+.panel.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
 .panel h2{ margin: 6px 32px 10px 6px; color:#1e3a8a; }
 .kpis{ padding-left: 18px; margin: 0 0 12px; }
 .kpis li{ margin: 6px 0; }

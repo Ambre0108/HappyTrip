@@ -38,6 +38,8 @@ const SVG_TO_DB = {
     IN: "IND"
 };
 
+let radarChart = null;
+
 $(document).ready(function () {
 
     // --- COULEURS DE BASE ---
@@ -78,6 +80,11 @@ $(document).ready(function () {
 
             $("#infoPanel").removeClass("hidden");
             $("#backdrop").removeClass("hidden");
+
+            $("#btnRadar").off().on("click", function () {
+                $("#radarContainer").removeClass("hidden");
+                genererRadar(data);
+            });
         });
     });
 
@@ -320,3 +327,43 @@ function afficherFormulaireAvis(codePays) {
         });
     }
 });
+function genererRadar(data) {
+
+    console.log("➡️ genererRadar exécuté", data);
+
+    // Supprimer l'ancien graphique
+    if (radarChart) {
+        radarChart.destroy();
+    }
+
+    // ATTENTION ⚠️ : D'ABORD déclarer ctx
+    const ctx = document.getElementById('radarChart').getContext('2d');
+
+    // Ensuite seulement on peut le log !
+    console.log("ctx =", ctx);
+
+    if (!ctx) {
+        console.error("❌ canvas introuvable ! Le graphique ne peut pas se dessiner.");
+        return;
+    }
+
+    radarChart = new Chart(ctx, {
+        type: 'radar',
+        data: {
+            labels: ["Score bonheur", "PIB", "Soutien social", "Espérance de vie", "Revenus tourisme"],
+            datasets: [{
+                label: "Indicateurs",
+                data: [
+                    parseFloat(data.score_bonheur),
+                    parseFloat(data.pib_par_habitant),
+                    parseFloat(data.soutien_social),
+                    parseFloat(data.esperance_vie),
+                    parseFloat(data.revenus_tourisme)
+                ],
+                backgroundColor: "rgba(54,162,235,0.3)",
+                borderColor: "rgba(54,162,235,1)",
+                borderWidth: 2
+            }]
+        }
+    });
+}
