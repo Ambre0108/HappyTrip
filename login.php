@@ -13,8 +13,14 @@ if ($conn->connect_error) {
     die("Erreur connexion : " . $conn->connect_error);
 }
 
+// Vérifier que le formulaire est bien envoyé
+if (!isset($_POST['email']) || !isset($_POST['mdp'])) {
+    echo "Veuillez remplir le formulaire.";
+    exit;
+}
+
 $email = $_POST['email'];
-$mdp = $_POST['mdp'];
+$mdp   = $_POST['mdp'];
 
 // Vérifier si email existe
 $sql = "SELECT id_utilisateur, nom, mot_de_passe FROM utilisateur WHERE email = ?";
@@ -24,16 +30,19 @@ $stmt->execute();
 $stmt->store_result();
 
 if ($stmt->num_rows === 1) {
+
     $stmt->bind_result($id, $nom, $hash);
     $stmt->fetch();
 
     if (password_verify($mdp, $hash)) {
-        // Connexion OK
+
+        // Connexion OK : on crée la session
         $_SESSION['id_utilisateur'] = $id;
         $_SESSION['nom'] = $nom;
 
-        header("Location: index1.php");
+        header("Location: index1.php"); // redirection vers le profil
         exit;
+
     } else {
         echo "Mot de passe incorrect";
     }
