@@ -235,11 +235,13 @@ $(document).ready(function () {
         $.get("getCountry.php?code=" + dbCode, function (data) {
 
             $("#pays").text(data.nom_pays);
-            $("#rang").text(data.rang_bonheur || "—");
-            $("#score").text(data.score_bonheur || "—");
-            $("#pib").text(data.pib_par_habitant || "—");
-            $("#touristes").text(data.nombre_touristes || "—");
-            $("#revenus").text(data.revenus_tourisme || "—");
+            $("#rang").text(data.rang_bonheur ? data.rang_bonheur + "ᵉ mondial" : "-");
+            $("#score").text(data.score_bonheur ? data.score_bonheur + " / 10" : "-");
+            $("#pib").text(data.pib_par_habitant ? data.pib_par_habitant + " k$" : "-");
+            $("#touristes").text(data.nombre_touristes ? 
+                                new Intl.NumberFormat().format(data.nombre_touristes) + " visiteurs/an" : "-");
+            $("#revenus").text(data.revenus_tourisme ? data.revenus_tourisme + " Md$" : "-");
+
             $("#desc").text(data.description || "Pas de description disponible.");
 
             chargerAvis(dbCode);
