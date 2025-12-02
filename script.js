@@ -247,7 +247,7 @@ $(document).ready(function () {
 
             // --- Carrousel photos du pays ---
             let currentPhoto = 1;
-            let maxPhotos = 10; // adapte si tu veux plus ou moins de photos
+            let maxPhotos = 18; // adapte si tu veux plus ou moins de photos
 
             function chargerPhoto(numero) {
                 const photo = document.getElementById("pays-photo");
