@@ -244,6 +244,39 @@ $(document).ready(function () {
 
             $("#desc").text(data.description || "Pas de description disponible.");
 
+
+            // --- Carrousel photos du pays ---
+            let currentPhoto = 1;
+            let maxPhotos = 10; // adapte si tu veux plus ou moins de photos
+
+            function chargerPhoto(numero) {
+                const photo = document.getElementById("pays-photo");
+                const chemin = `images/pays/${dbCode}/${numero}.jpg`;
+
+                fetch(chemin).then(res => {
+                    if (res.ok) {
+                        photo.src = chemin;
+                    } else {
+                        photo.src = "images/pays/default.jpg"; // si photo manquante
+                    }
+                });
+            }
+
+            chargerPhoto(currentPhoto);
+
+            document.getElementById("nextPhoto").onclick = () => {
+                if (currentPhoto < maxPhotos) currentPhoto++;
+                chargerPhoto(currentPhoto);
+            };
+
+            document.getElementById("prevPhoto").onclick = () => {
+                if (currentPhoto > 1) currentPhoto--;
+                chargerPhoto(currentPhoto);
+            };
+
+
+        
+
             chargerAvis(dbCode);
             afficherFormulaireAvis(dbCode);
 
