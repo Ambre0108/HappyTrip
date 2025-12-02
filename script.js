@@ -519,7 +519,7 @@ function genererRadar(data) {
     radarChart = new Chart(ctx, {
         type: 'radar',
         data: {
-            labels: ["Score bonheur", "PIB", "Soutien social", "Espérance de vie", "Revenus tourisme"],
+            labels: ["Score bonheur", "PIB", "Soutien social", "Espérance de vie", "Liberté", "Générosité"],
             datasets: [{
                 label: "Indicateurs",
                 data: [
@@ -527,7 +527,8 @@ function genererRadar(data) {
                     parseFloat(data.pib_par_habitant),
                     parseFloat(data.soutien_social),
                     parseFloat(data.esperance_vie),
-                    parseFloat(data.revenus_tourisme)
+                    parseFloat(data.liberte_choix),
+                    parseFloat(data.generosite)
                 ],
                 backgroundColor: "rgba(54,162,235,0.3)",
                 borderColor: "rgba(54,162,235,1)",

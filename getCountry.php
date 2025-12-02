@@ -32,6 +32,8 @@ SELECT
     b.pib_par_habitant,
     b.soutien_social,
     b.esperance_vie,
+    b.liberte_choix,
+    b.generosite,
     t.nombre_touristes,
     t.revenus_tourisme
     
