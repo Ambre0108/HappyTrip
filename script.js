@@ -26,6 +26,9 @@ const SVG_TO_DB = {
     US: "USA",
     CA: "CAN",
     MX: "MEX",
+    JM: "JAM",
+    TT: "TTO",
+
 
     // Amérique centrale / Caraïbes
     CU: "CUB",
@@ -92,6 +95,15 @@ const SVG_TO_DB = {
     UA: "UKR",
     BY: "BLR",
     RU: "RUS",
+    AL: "ALB",
+    BA: "BIH",
+    HR: "HRV",
+    XK: "XKX",
+    MD: "MDA",
+    ME: "MNE",
+    MK: "MKD",
+    RS: "SRB",
+    SI: "SVN",
 
     // Afrique du Nord
     MA: "MAR",
@@ -146,6 +158,11 @@ const SVG_TO_DB = {
     ZM: "ZMB",
     MZ: "MOZ",
     MG: "MDG",
+    KM: "COM",
+    LS: "LSO",
+    MW: "MWI",
+    MU: "MUS",
+
 
     // Moyen-Orient
     TR: "TUR",
@@ -192,6 +209,17 @@ const SVG_TO_DB = {
     PH: "PHL",
     BN: "BRN",
     TL: "TLS",
+    AM: "ARM",
+    AZ: "AZE",
+    CY: "CYP",
+    GE: "GEO",
+    HK: "HKG",
+    KZ: "KAZ",
+    KG: "KGZ",
+    TJ: "TJK",
+    TM: "TKM",
+    UZ: "UZB",
+
 
     // Océanie
     AU: "AUS",
