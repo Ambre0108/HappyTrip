@@ -311,6 +311,16 @@ $(document).ready(function () {
             $("#infoPanel").removeClass("hidden");
             $("#backdrop").removeClass("hidden");
 
+            // 🔹 Masquer le radar à chaque changement de pays
+            $("#radarContainer").addClass("hidden");
+
+            // 🔹 Détruire l'ancien graphique si il existe
+            if (radarChart) {
+                radarChart.destroy();
+                radarChart = null;
+            }
+
+
             $("#btnRadar").off().on("click", function () {
                 $("#radarContainer").removeClass("hidden");
                 genererRadar(data);
