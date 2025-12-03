@@ -12,7 +12,7 @@ $utilisateur = $_SESSION['id_utilisateur'];
 $code_pays = $_POST['code_pays'];
 $commentaire = $_POST['commentaire'];
 $note = $_POST['note'];
-$mode = $_POST['mode']; // insert ou update
+$mode = $_GET['mode'] ?? $_POST['mode'] ?? null;
 
 if ($mode === "update") {
 
@@ -33,4 +33,16 @@ if ($mode === "update") {
 }
 
 $stmt->execute();
+
+/* ►► SUPPRESSION DE LA DESTINATION APRÈS AVIS ◄◄ */
+
+$delete = $conn->prepare("
+    DELETE FROM destinations 
+    WHERE id_utilisateur = ? AND code_pays = ?
+");
+$delete->bind_param("is", $utilisateur, $code_pays);
+$delete->execute();
+
+/* ►► Fin ◄◄ */
+
 echo "ok";

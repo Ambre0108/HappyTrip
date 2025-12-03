@@ -1,0 +1,83 @@
+body {
+    font-family: Poppins, sans-serif;
+    background: #E6F1FF;
+    padding: 40px;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.tri-bar {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+select {
+    padding: 12px 15px;
+    border-radius: 12px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    background: white;
+    cursor: pointer;
+}
+
+.avis-list {
+    display: grid;
+    gap: 20px;
+}
+
+.avis-card {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.10);
+}
+
+.stars img.star-small {
+    width: 22px;
+    vertical-align: middle;
+}
+
+.date {
+    font-size: 13px;
+    opacity: 0.6;
+    margin-top: 5px;
+}
+
+.comment {
+    margin-top: 10px;
+    font-size: 15px;
+}
+
+.btn-delete {
+    margin-top: 15px;
+    background: #d82323;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-delete:hover {
+    background: #b61a1a;
+}
+
+.btn-retour {
+    display: block;
+    margin: 40px auto 0;
+    width: fit-content;
+    padding: 12px 20px;
+    background: #1E4C8A;
+    color: white;
+    border-radius: 12px;
+    text-decoration: none;
+}

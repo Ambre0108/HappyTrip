@@ -1,11 +1,11 @@
 // questions.js
 const questionsBank = [
     {
-        question: "La Suisse est, selon le rapport, le pays qui obtient le plus haut score de bonheur ?",
+        question: "La Finlande est, selon le rapport, le pays qui obtient le plus haut score de bonheur ?",
         type: "vf",
         choices: ["Vrai", "Faux"],
         answer: 0,
-        explanation: "C’est bien vrai ! Avec un score de 7.587."
+        explanation: "C’est bien vrai ! Avec un score de 7.769."
     },
     {
         question: "Lequel de ces pays est le plus heureux ?",
