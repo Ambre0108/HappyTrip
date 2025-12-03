@@ -554,11 +554,10 @@ function genererRadar(data) {
     radarChart = new Chart(ctx, {
         type: 'radar',
         data: {
-            labels: ["Score bonheur", "PIB", "Soutien social", "Espérance de vie", "Liberté", "Générosité"],
+            labels: ["PIB", "Soutien social", "Espérance de vie", "Liberté", "Générosité"],
             datasets: [{
                 label: "Indicateurs",
                 data: [
-                    parseFloat(data.score_bonheur),
                     parseFloat(data.pib_par_habitant),
                     parseFloat(data.soutien_social),
                     parseFloat(data.esperance_vie),
