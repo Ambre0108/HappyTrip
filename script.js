@@ -320,11 +320,12 @@ $(document).ready(function () {
                 radarChart = null;
             }
 
+            // 🔹 Afficher directement le radar
+            $("#radarContainer").removeClass("hidden");
+            genererRadar(data);
 
-            $("#btnRadar").off().on("click", function () {
-                $("#radarContainer").removeClass("hidden");
-                genererRadar(data);
-            });
+
+
         });
     });
 
