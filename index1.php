@@ -53,10 +53,9 @@ $nom = $_SESSION['nom'] ?? null;
       /* --- PROFIL + DÉCONNEXION À DROITE --- */
       .banner-actions {
           position: absolute;
-          right: 25px;
+          right: 40px;
           top: 50%;
           transform: translateY(-50%);
-          
           display: flex !important;
           flex-direction: row;
           align-items: center;
@@ -130,6 +129,24 @@ $nom = $_SESSION['nom'] ?? null;
       body.accueil .overlay {
           margin-top: 170px !important;
       }
+
+    .boutons .btn {
+    padding: 16px 26px !important;    /* Plus haut et plus large */
+    font-size: 18px !important;       /* Texte plus imposant */
+    border-radius: 14px !important;   /* Arrondi plus visible */
+    font-weight: 600;
+    min-width: 220px;                 /* Taille mini harmonisée */
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+/* Effet hover plus satisfaisant */
+.boutons .btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    background: #d7b89c !important; /* légèrement plus clair au survol */
+}
+
   </style>
 </head>
 
@@ -156,9 +173,6 @@ $nom = $_SESSION['nom'] ?? null;
       <!-- Zone droite si utilisateur connecté -->
       <?php if ($nom): ?>
       <div class="banner-actions">
-          <a href="profil.php" class="icon-btn" data-tooltip="Profil">
-              <img src="images/avatar.svg" class="icon-img" alt="Profil">
-          </a>
 
           <a href="logout.php" class="icon-btn" data-tooltip="Déconnexion">
               <img src="images/disconnect.svg" class="icon-img" alt="Déconnexion">
@@ -177,12 +191,17 @@ $nom = $_SESSION['nom'] ?? null;
     <div class="boutons">
       <div class="colonne">
         <a href="presentation.html" class="btn">C’est quoi HappyTrip ?</a>
-        <a href="login.html" class="btn">Connexion</a>
+
+        <?php if ($nom): ?>
+            <a href="profil.php" class="btn">Profil / Planificateur</a>
+        <?php else: ?>
+            <a href="login.html" class="btn">Connexion</a>
+        <?php endif; ?>
       </div>
 
       <div class="colonne">
-        <a href="carte.html" class="btn">Découvrir la carte 🌍</a>
-        <a href="accueil_quiz.html" class="btn">Quiz 🎯</a>
+        <a href="carte.html" class="btn">Découvrir la carte </a>
+        <a href="accueil_quiz.html" class="btn">Quiz </a>
       </div>
     </div>
   </div>

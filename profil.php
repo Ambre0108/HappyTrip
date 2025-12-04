@@ -100,6 +100,7 @@ body {
     border-radius:20px;
     box-shadow:0 3px 8px rgba(0,0,0,0.1);
     display:flex; flex-direction:column; align-items:center;
+    position: relative;   /* ⬅️ AJOUT OBLIGATOIRE */
 }
 .avatar {
     width:100px; height:100px;
@@ -278,8 +279,181 @@ select:focus {
 .btn-edit:hover {
     background:#DD6B20;
 }
+.dest-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: -2px 0;
+    min-height: 32px; /* Taille standard pour toutes les lignes */
+}
 
+.dest-row .emoji {
+    font-size: 22px;
+    width: 26px;          /* même largeur pour tous */
+    text-align: center;   /* on centre l'emoji */
+}
 
+/* POPUP OVERLAY */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.55);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.popup-overlay.hidden {
+    display: none;
+}
+
+/* POPUP WINDOW */
+.popup-content {
+    background: white;
+    width: 450px;
+    padding: 25px;
+    border-radius: 18px;
+    box-shadow: 0 6px 30px rgba(0,0,0,0.2);
+    animation: fadeIn 0.3s ease;
+}
+
+/* --- POPUP --- */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.45);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.popup-overlay.hidden {
+    display: none;
+}
+
+.popup-content {
+    background: white;
+    width: 450px;
+    padding: 30px;
+    border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+    animation: fadeInPopup .25s ease;
+}
+
+@keyframes fadeInPopup {
+    from { opacity: 0; transform: translateY(-15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- TITRE --- */
+.popup-content h2 {
+    margin-top: 0;
+    font-size: 24px;
+}
+
+label {
+    font-weight: 600;
+    font-size: 16px;
+    margin-top: 15px;
+    display: block;
+}
+
+/* --- ÉTOILES --- */
+#input-stars {
+    display: flex;
+    gap: 10px;
+    margin: 10px 0 20px 0;
+}
+
+#input-stars img {
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    transition: transform 0.15s;
+}
+
+#input-stars img:hover {
+    transform: scale(1.15);
+}
+
+/* --- TEXTAREA --- */
+.popup-content textarea {
+    width: 100%;
+    margin-top: 8px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #c9d7e8;
+    resize: vertical;
+}
+
+/* --- BOUTONS --- */
+.popup-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn-cancel-popup {
+    background: #b1b1b1;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-submit-popup {
+    background: #1E4C8A;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-submit-popup:hover {
+    background: #163A6B;
+}
+
+/* Bouton maison */
+
+.home-inside {
+    position: absolute;
+    top: 20px;
+    left: 25px;
+    z-index: 5;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.home-text {
+    font-size: 11px;
+    color: #666;
+    margin-top: 4px;
+    pointer-events: none; /* Le clic reste sur l’icône */
+}
+
+.home-inside img {
+    width:46px;
+    height: 46px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.home-inside img:hover {
+    transform: scale(1.12);
+}
 
 </style>
 </head>
@@ -289,6 +463,11 @@ select:focus {
 
 <!-- HEADER -->
 <div class="profile-header">
+
+    <a href="index1.php" class="home-inside">
+        <img src="images/home.svg" alt="Accueil">
+        <span class="home-text">Retour à l'accueil</span>
+    </a>
     <div class="avatar"></div>
     <h2><?= htmlspecialchars($user['nom']) ?></h2>
     <p><?= htmlspecialchars($user['email']) ?></p>
@@ -341,17 +520,82 @@ select:focus {
 
             <strong><?= $d['nom_pays'] ?></strong>
 
-            <?php if($d['villes']): ?>🌆 <em><?= $d['villes'] ?></em><br><?php endif; ?>
+            <?php if($d['villes']): ?>
+                <div class="dest-row">
+                    <span class="emoji">🌆 </span>
+                    <span><strong>Villes/Lieux:</strong>
+                        <?= htmlspecialchars($d['villes']) ?></span>
+                </div>
+                <?php endif; ?>
 
-            <?php if($d['date_depart']): ?>
-                📅 Du <?= date("d/m/Y", strtotime($d['date_depart'])) ?>
-                au <?= date("d/m/Y", strtotime($d['date_retour'])) ?><br>
+            <?php
+            // 1 — CAS DATE EXACTE : départ + retour
+            if (!empty($d['date_depart']) && !empty($d['date_retour'])): ?>
+                <div class="dest-row">
+                    <span class="emoji">📅</span>
+                    <span><strong>Dates :</strong> 
+                        Du <?= date("d/m/Y", strtotime($d['date_depart'])) ?> 
+                        au <?= date("d/m/Y", strtotime($d['date_retour'])) ?>
+                    </span>
+                </div>
+
+            <?php 
+            // 2 — CAS DATE EXACTE MAIS SANS RETOUR
+            elseif (!empty($d['date_depart'])): ?>
+                <div class="dest-row">
+                    <span class="emoji">📅</span>
+                    <span><strong>Date :</strong>
+                        Le <?= date("d/m/Y", strtotime($d['date_depart'])) ?>
+                    </span>
+                </div>
+
+            <?php 
+            // 3 — CAS DATE APPROXIMATIVE
+            elseif (!empty($d['date_depart_approx'])): ?>
+                <div class="dest-row">
+                    <span class="emoji">📅</span>
+                    <span><strong>Date :</strong>
+                        <?= htmlspecialchars($d['date_depart_approx']) ?>
+                    </span>
+                </div>
             <?php endif; ?>
 
-            <?php if($d['activites']): ?>🗺️ Activités : <?= nl2br(htmlspecialchars($d['activites'])) ?><br><?php endif; ?>
-            <?php if($d['budget']): ?>💰 Budget : <?= htmlspecialchars($d['budget']) ?> €<?php endif; ?>
+            <?php if($d['activites']): ?>
+                <div class="dest-row">
+                    <span class="emoji">🗺️ </span>
+                    <span><strong> Activités: </strong>
+                        <?= nl2br(htmlspecialchars($d['activites'])) ?></span>
+                </div>
+                <?php endif; ?>
+
+            <?php if($d['budget']): ?>
+                <div class="dest-row">
+                    <span class="emoji">💰 </span>
+                    <span><strong> Budget :</strong>
+                        <?= nl2br(htmlspecialchars($d['budget'])) ?></span>
+                </div>
+                <?php endif; ?>
+            
+            <?php if($d['accompagnement']): ?>
+                <div class="dest-row">
+                    <span class="emoji">🧑‍🧑‍🧒‍🧒 </span>
+                    <span><strong> Avec qui : </strong>
+                        <?= nl2br(htmlspecialchars($d['accompagnement'])) ?></span>
+                </div>
+                <?php endif; ?>
+
+            <?php if($d['hebergement']): ?>
+                <div class="dest-row">
+                    <span class="emoji">🏠 </span>
+                    <span><strong> Logement :</strong>
+                        <?= nl2br(htmlspecialchars($d['hebergement'])) ?></span>
+                </div>
+                <?php endif; ?>
+
+
 
             <div class="dest-actions">
+
 
                 <!-- Bouton Modifier -->
                 <a href="ajouter_destination.php?id_destination=<?= $d['id_destination'] ?>">
@@ -392,8 +636,8 @@ select:focus {
 
     <label>Trier par :</label>
     <select id="sortAvis" class="sort-select">
-        <option value="date_desc">Les plus récents</option>
-        <option value="date_asc">Les plus anciens</option>
+        <option value="date_desc">Les plus anciens</option>
+        <option value="date_asc">Les plus récents</option>
         <option value="note_desc">Note décroissante</option>
         <option value="note_asc">Note croissante</option>
     </select>
@@ -413,7 +657,7 @@ select:focus {
                 <p><?= nl2br(htmlspecialchars($a['commentaire'])) ?></p>
                 <div class="avis-footer">
                     <small><?= date("d/m/Y", strtotime($a['date_avis'])) ?></small>
-                    <button class="btn-delete btn-delete-avis" data-pays="<?= $a['code_pays'] ?>">Supprimer</button>
+                    <button class="btn btn-delete" data-pays="<?= $a['code_pays'] ?>">Supprimer</button>
                 </div>
             </div>
         <?php endforeach; endif; ?>
@@ -427,6 +671,38 @@ select:focus {
 </div>
 
 </div>
+</div>
+
+<!-- POPUP AVIS -->
+<div id="popup-avis" class="popup-overlay hidden">
+    <div class="popup-content">
+
+        <h2>Laisser un avis sur <span id="popup-nom-pays"></span></h2>
+
+        <form id="form-avis">
+
+            <input type="hidden" name="code_pays" id="popup-code-pays">
+            <input type="hidden" name="note" id="note-value" value="0">
+
+            <label>Note :</label>
+            <div id="input-stars">
+                <img data-value="1" src="images/etoile_vide.svg">
+                <img data-value="2" src="images/etoile_vide.svg">
+                <img data-value="3" src="images/etoile_vide.svg">
+                <img data-value="4" src="images/etoile_vide.svg">
+                <img data-value="5" src="images/etoile_vide.svg">
+            </div>
+
+            <label>Votre avis :</label>
+            <textarea name="commentaire" rows="4" placeholder="Racontez votre voyage..."></textarea>
+
+            <div class="popup-buttons">
+                <button type="button" class="btn-cancel-popup" onclick="fermerPopupAvis()">Annuler</button>
+                <button type="submit" class="btn-submit-popup">Valider</button>
+            </div>
+
+        </form>
+    </div>
 </div>
 
 <script>
@@ -482,6 +758,71 @@ if (voirMoins) {
         voirPlus.style.display = "block";
     });
 }
+
+/* --- OUVRIR POPUP --- */
+function ouvrirPopupAvis(codePays, nomPays) {
+    document.getElementById("popup-code-pays").value = codePays;
+    document.getElementById("popup-nom-pays").textContent = nomPays;
+
+    document.getElementById("popup-avis").classList.remove("hidden");
+
+    // Réinitialisation
+    document.getElementById("note-value").value = 0;
+    mettreAJourEtoiles(0);
+}
+
+/* --- FERMER POPUP --- */
+function fermerPopupAvis() {
+    document.getElementById("popup-avis").classList.add("hidden");
+}
+
+/* --- LOGIQUE ÉTOILES --- */
+const stars = document.querySelectorAll("#input-stars img");
+const noteField = document.getElementById("note-value");
+
+function mettreAJourEtoiles(note) {
+    stars.forEach(s => {
+        s.src = (s.dataset.value <= note)
+            ? "images/etoile_remplie.svg"
+            : "images/etoile_vide.svg";
+    });
+}
+
+stars.forEach(star => {
+    star.addEventListener("mouseover", () => {
+        mettreAJourEtoiles(star.dataset.value);
+    });
+
+    star.addEventListener("click", () => {
+        noteField.value = star.dataset.value;
+    });
+});
+
+document.getElementById("input-stars").addEventListener("mouseleave", () => {
+    mettreAJourEtoiles(noteField.value);
+});
+/* --- ENVOI DU FORMULAIRE AVIS --- */
+document.getElementById("form-avis").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    let formData = new FormData(this);
+
+    fetch("traitement_avis.php", {
+        method: "POST",
+        body: formData
+    })
+    .then(r => r.text())
+    .then(res => {
+        if (res === "ok") {
+            alert("Votre avis a bien été enregistré !");
+            window.location.href = "profil.php";
+        } else {
+            alert("Erreur : " + res);
+        }
+    });
+});
+
+
 </script>
 
 </body>

@@ -18,11 +18,12 @@ try {
 // Récupérer les pays
 $pays = $pdo->query("SELECT code_iso, nom_pays FROM pays ORDER BY nom_pays ASC")->fetchAll();
 
-// 🔥 Détection mode modification
+// 🔥 Mode modification
 $destination = null;
 $idDestination = null;
 
 if (isset($_GET['id_destination'])) {
+
     $idDestination = intval($_GET['id_destination']);
 
     $stmt = $pdo->prepare("
@@ -32,13 +33,12 @@ if (isset($_GET['id_destination'])) {
     $stmt->execute([$idDestination, $_SESSION['id_utilisateur']]);
     $destination = $stmt->fetch();
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Ajouter une destination</title>
+<title><?= $destination ? "Modifier une destination" : "Ajouter une destination" ?></title>
 
 <style>
 body {
@@ -97,6 +97,33 @@ button {
     justify-content:space-between;
     margin-top:30px;
 }
+select {
+    width:100%;
+    padding:12px;
+    margin-top:8px;
+    border-radius:12px;
+    border:2px solid #a7b9d0ff;
+    background:white;
+    font-size:15px;
+    appearance:none;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    background-image:url('data:image/svg+xml;utf8,<svg fill="%231E4C8A" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat:no-repeat;
+    background-position:right 12px center;
+    background-size:18px;
+    transition:0.2s ease;
+}
+
+select:hover {
+    border-color:#1E4C8A;
+}
+
+select:focus {
+    outline:none;
+    border-color:#1E4C8A;
+    box-shadow:0 0 5px rgba(30,76,138,0.3);
+}
 </style>
 
 </head>
@@ -107,11 +134,12 @@ button {
 
 <form action="traitement_destination.php" method="POST">
 
-    <!-- MODE MODIFICATION : ID HIDDEN -->
+    <!-- MODE MODIFICATION -->
     <?php if ($destination): ?>
         <input type="hidden" name="id_destination" value="<?= $destination['id_destination'] ?>">
     <?php endif; ?>
 
+    <!-- PAYS -->
     <label>Pays</label>
     <select name="code_pays" required>
         <?php foreach ($pays as $p): ?>
@@ -122,17 +150,46 @@ button {
         <?php endforeach; ?>
     </select>
 
+    <!-- VILLES -->
     <label>Villes / Régions</label>
     <input type="text" name="villes" 
            value="<?= $destination['villes'] ?? '' ?>" 
            placeholder="Tokyo, Kyoto...">
 
-    <label>Date de départ</label>
-    <input type="date" name="date_depart" value="<?= $destination['date_depart'] ?? '' ?>">
+    <!-- TYPE DE DATE -->
+    <label>Type de date</label>
+    <select name="type_date" id="type_date" required>
+        <option value="exacte" 
+            <?= isset($destination) && !$destination['date_depart_approx'] ? "selected" : "" ?>>
+            Date exacte
+        </option>
 
-    <label>Date de retour</label>
-    <input type="date" name="date_retour" value="<?= $destination['date_retour'] ?? '' ?>">
+        <option value="approx"
+            <?= isset($destination) && $destination['date_depart_approx'] ? "selected" : "" ?>>
+            Date approximative
+        </option>
+    </select>
 
+    <!-- DATE EXACTE -->
+    <div id="zone_exacte">
+        <label>Date de départ</label>
+        <input type="date" name="date_depart" 
+            value="<?= $destination['date_depart'] ?? '' ?>">
+
+        <label>Date de retour</label>
+        <input type="date" name="date_retour" 
+            value="<?= $destination['date_retour'] ?? '' ?>">
+    </div>
+
+    <!-- DATE APPROX -->
+    <div id="zone_approx" style="display:none; margin-top:10px;">
+        <label>Date approximative</label>
+        <input type="text" name="date_depart_approx" 
+               placeholder="Ex : Mai 2027, Été 2025, 2026-2027..."
+               value="<?= $destination['date_depart_approx'] ?? '' ?>">
+    </div>
+
+    <!-- BUDGET -->
     <label>Budget estimé</label>
     <select name="budget">
         <option value="">-- Choisir --</option>
@@ -147,9 +204,11 @@ button {
         <?php endforeach; ?>
     </select>
 
+    <!-- ACTIVITÉS -->
     <label>Activités envisagées</label>
     <textarea name="activites" rows="3"><?= $destination['activites'] ?? '' ?></textarea>
 
+    <!-- HÉBERGEMENT -->
     <label>Hébergement</label>
     <select name="hebergement">
         <?php 
@@ -162,6 +221,7 @@ button {
         <?php endforeach; ?>
     </select>
 
+    <!-- ACCOMPAGNEMENT -->
     <label>Avec qui ?</label>
     <select name="accompagnement">
         <?php 
@@ -174,50 +234,58 @@ button {
         <?php endforeach; ?>
     </select>
 
-    <label>Priorité</label>
-    <select name="priorite">
-        <?php 
-        $prio = ["", "Faible", "Moyenne", "Haute"];
-        foreach ($prio as $p):
-        ?>
-        <option value="<?= $p ?>" <?= ($destination && $destination['priorite']==$p) ? "selected" : "" ?>>
-            <?= $p ?: "-- Choisir --" ?>
-        </option>
-        <?php endforeach; ?>
-    </select>
 
+    <!-- BOUTONS -->
     <div class="form-buttons">
-
-        <!-- Bouton Annuler -->
         <a href="profil.php">
             <button type="button" class="btn-cancel">Annuler</button>
         </a>
 
-        <!-- Bouton Ajouter / Modifier -->
         <button type="submit" class="btn-add">
             <?= $destination ? "Modifier" : "Ajouter" ?>
         </button>
-
     </div>
 </form>
 
 </div>
 
 <script>
-// Bloquer date retour < date départ
-document.addEventListener("DOMContentLoaded", function() {
-    const depart = document.querySelector('input[name="date_depart"]');
-    const retour = document.querySelector('input[name="date_retour"]');
+// Toggle date exacte / approx
+function toggleDateFields() {
+    const type = document.getElementById("type_date").value;
 
-    depart.addEventListener('change', () => retour.min = depart.value);
+    const exacteZone = document.getElementById("zone_exacte");
+    const approxZone = document.getElementById("zone_approx");
 
-    retour.addEventListener('change', () => {
-        if (retour.value < depart.value) {
-            alert("La date de retour ne peut pas être avant la date de départ.");
-            retour.value = depart.value;
-        }
-    });
-});
+    const dateDepart = document.querySelector('input[name="date_depart"]');
+    const dateRetour = document.querySelector('input[name="date_retour"]');
+    const dateApprox = document.querySelector('input[name="date_depart_approx"]');
+
+    if (type === "exacte") {
+        exacteZone.style.display = "block";
+        approxZone.style.display = "none";
+
+        dateDepart.disabled = false;
+        dateRetour.disabled = false;
+        dateApprox.disabled = true;
+
+        dateApprox.value = "";
+    }
+    else {
+        exacteZone.style.display = "none";
+        approxZone.style.display = "block";
+
+        dateDepart.disabled = true;
+        dateRetour.disabled = true;
+        dateApprox.disabled = false;
+
+        dateDepart.value = "";
+        dateRetour.value = "";
+    }
+}
+
+document.getElementById("type_date").addEventListener("change", toggleDateFields);
+toggleDateFields();
 </script>
 
 </body>
