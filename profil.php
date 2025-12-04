@@ -184,8 +184,18 @@ body {
     transition:0.2s;
 }
 
-.btn-delete { background:#E53E3E; }
-.btn-delete:hover { background:#C53030; }
+.btn-delete,
+.btn-delete-avis,
+.btn-delete-destination {
+    background:#E53E3E;
+}
+
+.btn-delete:hover,
+.btn-delete-avis:hover,
+.btn-delete-destination:hover {
+    background:#C53030;
+}
+
 
 .btn-complete { background:#38A169; }
 .btn-complete:hover { background:#2F855A; }
@@ -518,7 +528,7 @@ label {
     <?php else: foreach($destinations as $d): ?>
         <div class="dest-card">
 
-            <strong><?= $d['nom_pays'] ?></strong>
+            <strong style="font-size: 20px;"><?= $d['nom_pays'] ?></strong>
 
             <?php if($d['villes']): ?>
                 <div class="dest-row">
@@ -578,7 +588,7 @@ label {
             
             <?php if($d['accompagnement']): ?>
                 <div class="dest-row">
-                    <span class="emoji">🧑‍🧑‍🧒‍🧒 </span>
+                    <span class="emoji">🧳 </span>
                     <span><strong> Avec qui : </strong>
                         <?= nl2br(htmlspecialchars($d['accompagnement'])) ?></span>
                 </div>
@@ -605,7 +615,7 @@ label {
                 <!-- Supprimer -->
                 <form action="supprimer_destination.php" method="POST" onsubmit="return confirm('Supprimer cette destination ?')">
                     <input type="hidden" name="id_destination" value="<?= $d['id_destination'] ?>">
-                    <button class="btn btn-delete">Supprimer</button>
+                    <button class="btn btn-delete-destination">Supprimer</button>
                 </form>
 
                 <!-- Voyage effectué -->
@@ -657,7 +667,7 @@ label {
                 <p><?= nl2br(htmlspecialchars($a['commentaire'])) ?></p>
                 <div class="avis-footer">
                     <small><?= date("d/m/Y", strtotime($a['date_avis'])) ?></small>
-                    <button class="btn btn-delete" data-pays="<?= $a['code_pays'] ?>">Supprimer</button>
+                    <button class="btn btn-delete-avis" data-pays="<?= $a['code_pays'] ?>">Supprimer</button>
                 </div>
             </div>
         <?php endforeach; endif; ?>
