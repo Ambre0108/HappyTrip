@@ -483,7 +483,7 @@ label {
     <p><?= htmlspecialchars($user['email']) ?></p>
 
     <div class="stats">
-        <span><strong>🌍 Pays visités : <?= $nbPaysVisit ?></strong></span>
+        <span><strong>🌍 Avis écrit(s) : <?= $nbPaysVisit ?></strong></span>
         <span><strong>🧭 Destination(s) prévue(s) : <?= $nbDestinations ?></strong></span>
     </div>
 </div>
